@@ -1,0 +1,11 @@
+{
+    "dimmers": [
+        {
+            "name": "Dalle_TV",
+            "prefix": "blueLamp",
+            "minvalue": 0,
+            "maxvalue": 255,
+            "range": 1
+        }
+    ]
+}
