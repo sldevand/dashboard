@@ -11,16 +11,6 @@
             "temp": "18.31"
         },
         {
-            "name": "Cuisine",
-            "id": "sensor24ctn10id2",
-            "liquidColor": "#ff6666",
-            "miniTemp": "10",
-            "maxiTemp": "30",
-            "precTemp": "10",
-            "anim": 1,
-            "temp": "20.69"
-        },
-        {
             "name": "Sdb Bas",
             "id": "sensor24dht11id1",
             "liquidColor": "#ff6666",
