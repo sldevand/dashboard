@@ -6,7 +6,6 @@
 		$.getJSON('/activapi.fr/api/thermostat',function(data){
 			$.each(data,function(index,value){
 				thermostat.apiData=value;
-				thermostat.externalTemp=value.sensor.valeur1;
 				thermostat.modeid=value.modeid;
 				if(value.mode !== null ){
 					thermostat.modeName=value.mode.nom;

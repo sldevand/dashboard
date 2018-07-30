@@ -86,10 +86,6 @@ function Thermostat(id,widgetContentId){
 				'</div>'+
 			'</div>'+
 
-			'<div id="ther_tempext'+this.m_id+'" class="col s4 offset-s2 m5 offset-s1 dispIcon">'+
-				this.iconifyNoTitle(this.externalTemp,"thermometer")+
-			'</div>'+
-
 			'<div id="ther_mode'+this.m_id+'" class="col s4 m5 dispIcon">'+
 				this.iconifyMode(this.apiData.modeid)+
 			'</div>'+
