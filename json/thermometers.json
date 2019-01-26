@@ -2,7 +2,7 @@
     "thermometers": [
         {
             "name": "Sdb Haut",
-            "id": "sensor24ctn10id1",
+            "id": "sensor24ctn10id2",
             "liquidColor": "#ff6666",
             "miniTemp": "10",
             "maxiTemp": "30",
