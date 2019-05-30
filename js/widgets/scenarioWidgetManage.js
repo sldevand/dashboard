@@ -16,8 +16,8 @@ function loadScenarioWidget(scenarioJSON) {
         firstLoadScenarios = false;
         $("#widget-scenarios-content").html("");
     }
-    generateScenarioWidgetHtml("scenario" + scenarioJSON.scenarioid);
-    var scenarioObj = new ScenarioWidget("scenario" + scenarioJSON.scenarioid);
+    generateScenarioWidgetHtml("scenario" + scenarioJSON.id);
+    var scenarioObj = new ScenarioWidget("scenario" + scenarioJSON.id);
 
     scenarioObj.apiData = scenarioJSON;
     scenarioObj.animtime = animationLength;
