@@ -1,5 +1,5 @@
-// var address = '192.168.1.52';
-var address = 'localhost';
+var address = '192.168.1.52';
+// var address = 'localhost';
 var port = 5901;
 
 $('#message').html(connectIcon("red"));
