@@ -1,10 +1,10 @@
-var address = '192.168.1.52';
-// var address = 'localhost';
+// var address = '192.168.1.52';
+var address = 'localhost';
 var port = 5901;
 
 $('#message').html(connectIcon("red"));
 
-var fulladdress = 'http://' + address + ':' + port;
+var fulladdress = 'http://' + address + ':' + port;gitk
 var socket = io.connect(fulladdress);
 
 //EVENTS FROM SERVER

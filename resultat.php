@@ -5,10 +5,17 @@ require __DIR__ . '/php/lib/OCFram/SplClassLoader.php';
 $OCFramLoader = new SplClassLoader('OCFram', __DIR__ . '/php/lib');
 $OCFramLoader->register();
 
+$OSDetectorLoader = new SplClassLoader('OSDetector', __DIR__ . '/php/lib/vendors');
+$OSDetectorLoader->register();
+
 use OCFram\HTTPRequest;
+use OSDetector\Detector;
 
 $rq = new HTTPRequest();
 include("php/gpio.php");
+require __DIR__ . '/php/config/params.php';
+
+$osDetector = new Detector();
 
 if ($rq->getExists("setjson") && $rq->getExists("value")) {
     changeParameters(htmlspecialchars($rq->getData("setjson")));
@@ -21,7 +28,11 @@ if ($rq->getExists("setjson") && $rq->getExists("value")) {
 } elseif ($rq->getExists("openvpn")) {
     activateOpenvpn($rq->getData("openvpn"));
 } elseif ($rq->getExists("log")) {
-    getLog("/home/pi/activServer/log.txt");
+    $path = ACTIVSERVER_LOG_LIN_PATH;
+    if ($osDetector->isWindowsLike()) {
+        $path = ACTIVSERVER_LOG_WIN_PATH;
+    }
+    getLog($path);
 } elseif ($rq->getExists("actionid") &&
     $rq->getExists("val")) {
 
