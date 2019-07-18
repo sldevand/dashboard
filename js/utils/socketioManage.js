@@ -4,7 +4,7 @@ var port = 5901;
 
 $('#message').html(connectIcon("red"));
 
-var fulladdress = 'http://' + address + ':' + port;gitk
+var fulladdress = 'http://' + address + ':' + port;
 var socket = io.connect(fulladdress);
 
 //EVENTS FROM SERVER
