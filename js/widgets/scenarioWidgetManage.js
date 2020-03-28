@@ -4,7 +4,7 @@ var animationLength = 500.0; // Animation length in milliseconds
 var firstLoadScenarios = true;
 
 function getScenariosFromApi() {
-    $.getJSON("/activapi.fr/api/scenarios/", function (data) {
+    $.getJSON(config.apiUrl + "scenarios/", function (data) {
         $.each(data, function (key, scenario) {
             loadScenarioWidget(scenario);
         });
@@ -26,7 +26,6 @@ function loadScenarioWidget(scenarioJSON) {
 
     scenarios.push(scenarioObj);
 }
-
 
 function generateScenarioWidgetHtml(id) {
     var prepHTML = '<div class="col s4">' +

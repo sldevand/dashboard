@@ -39,15 +39,13 @@ $(document).ready(function(){
 		$("#titlebar").append("Accueil");
 
 		loadClock();
-	
-		//loadMultiplugWidgetMain();
+
 		getScenariosFromApi();
 		getDimmersFromAPI();		
 		getIntersFromApi();		
 		parseThermostatFromAPI();	
 		parseThermosFromJSON();
 		parseTeleinfoFromAPI();
-		getClipboardsFromJSON();
 		loadMeteoWidget();	
 		
 		
@@ -57,21 +55,6 @@ $(document).ready(function(){
 		$("#widget-clock-content").html(generateClockHtml());					
 		var clock = new CanvasClock("clock_js");		
 	}
-
-	function loadMultiplugWidgetMain(){		
-
-		$("#maincontent").append(generateMultiplugContainerHtml());
-		loadPlugs( [{ "id": "4", "nom": "Multiprise_0", "module": "nrf24", "protocole": "node", "adresse": "1Nodw", "type": "multi", "radioid": "0", "etat": "0", "categorie": "multiplug" },
-					{ "id": "5", "nom": "Multiprise_1", "module": "nrf24", "protocole": "node", "adresse": "1Nodw", "type": "multi", "radioid": "0", "etat": "0", "categorie": "multiplug" },
-					{ "id": "6", "nom": "Multiprise_2", "module": "nrf24", "protocole": "node", "adresse": "1Nodw", "type": "multi", "radioid": "0", "etat": "0", "categorie": "multiplug" },
-					{ "id": "7", "nom": "Multiprise_3", "module": "nrf24", "protocole": "node", "adresse": "1Nodw", "type": "multi", "radioid": "0", "etat": "0", "categorie": "multiplug" },
-					{ "id": "8", "nom": "Multiprise_4", "module": "nrf24", "protocole": "node", "adresse": "1Nodw", "type": "multi", "radioid": "0", "etat": "0", "categorie": "multiplug" },
-					{ "id": "9", "nom": "Multiprise_5", "module": "nrf24", "protocole": "node", "adresse": "1Nodw", "type": "multi", "radioid": "0", "etat": "0", "categorie": "multiplug" }
-					]);
-		//getScenariosFromApi();
-		
-		
-	}	
 	
 	function loadGraphsMain(){		
 		$("#titlebar").append("Relevés");

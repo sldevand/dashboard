@@ -28,6 +28,7 @@
 			<script src="js/utils/animate.jquery.js"></script>
 			<script src="js/utils/forms.js"></script>
 			<script src="js/utils/dateManage.js"></script>
+			<script src="js/config.js"></script>
 			<script src="js/widgets/widget.js"></script>
 			<script src="js/widgets/widgetAbstract.js"></script>
 			<script src="js/widgets/interrupteur.js"></script>
@@ -38,8 +39,6 @@
 			<script src="js/widgets/graphsmanage.js"></script>
 			<script src="js/widgets/canvas_clock.js"></script>
 			<script src="js/widgets/canvas_clockmanage.js"></script>
-			<script src="js/widgets/clipBoard.js"></script>
-			<script src="js/widgets/clipBoardManage.js"></script>
 			<script src="js/widgets/dimmer.js"></script>
 			<script src="js/widgets/dimmerManage.js"></script>
 			<script src="js/widgets/teleinfo.js"></script>
@@ -48,14 +47,12 @@
 			<script src="js/widgets/thermostatManage.js"></script>
 			<script src="js/widgets/scenarioWidget.js"></script>
 			<script src="js/widgets/scenarioWidgetManage.js"></script>
-			<script src="js/widgets/multiplug.js"></script>
-			<script src="js/widgets/multiplugManage.js"></script>
 			<script src="js/animations.js"></script>
 
 			<script src="js/widgets/widgetJsonFileManage.js"></script>
-			<script src="js/viewPager.js"></script>
+			<script type="module" src="js/viewPager.js"></script>
 			<script src="js/widgets/weather.js"></script>
-			<script src="js/utils/socketioManage.js"></script>
+			<script type="module" src="js/utils/socketioManage.js"></script>
 
 	</body>
 </html>

@@ -1,5 +1,4 @@
 const config = {
-    apiUrl: "http://domusbox/activapi/api"
+    apiUrl: "http://192.168.1.52/activapi/api/",
+    nodeUrl: "http://192.168.1.52:5901"
 };
-
-export default config;

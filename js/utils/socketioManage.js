@@ -1,68 +1,63 @@
-var address = '192.168.1.52';
-// var address = 'localhost';
-var port = 5901;
 
 $('#message').html(connectIcon("red"));
-
-var fulladdress = 'http://' + address + ':' + port;
-var socket = io.connect(fulladdress);
+var socket = io.connect(config.nodeUrl);
 
 //EVENTS FROM SERVER
-socket.on('message', function (message) {
+socket.on('message', message => {
     $('#message').html(message);
 });
 
-socket.on('connect', function (message) {
+socket.on('connect', message => {
     $('#message').html(connectIcon("teal"));
 });
 
-socket.on('disconnect', function (message) {
+socket.on('disconnect',message =>  {
     $('#message').html(connectIcon("red"));
 });
 
-socket.on('dimmer', function (message) {
+socket.on('dimmer',message =>  {
     updateDimmer(message);
 });
 
-socket.on('dimmerload', function (message) {
+socket.on('dimmerload',message =>  {
     getdimmersFromJSON(message);
 });
 
-socket.on('inter', function (message) {
+socket.on('inter',message =>  {
     updateInterNode(message);
 });
-socket.on('interload', function (message) {
+socket.on('interload',message =>  {
     if (!$("#" + message.id).length) loadInter(message);
 });
 
-socket.on('thermo', function (message) {
+socket.on('thermo',message =>  {
     updateThermo(message);
 });
 
-socket.on('teleinfo', function (message) {
+socket.on('teleinfo',message =>  {
     updateTeleinfo(message);
 });
 
-socket.on('thermostat', function (message) {
+socket.on('thermostat',message =>  {
     updateThermostat(message);
     setTimeout(function () {
         updateThermostat(message);
     }, 300);
 });
 
-socket.on("therplansave", function (id) {
+socket.on("therplansave", id =>  {
     refreshThermostat();
 });
 
-socket.on("thermodesave", function (id) {
+socket.on("thermodesave", id =>  {
     refreshThermostat();
 });
 
-socket.on('therclock', function (message) {
+socket.on('therclock',message =>  {
     $("#heureLue").html(message);
 });
 
-socket.on('chaudiere', function (message) {
+socket.on('chaudiere',message =>  {
     updateSensorThermostat(message);
 });
 
@@ -72,10 +67,9 @@ function connectIcon(color) {
 
 function refreshThermostat() {
     thermostat.menu = 0;
-    $("#" + thermostat.m_widgetContentId).fadeOut(function () {
-
+    $("#" + thermostat.m_widgetContentId).fadeOut(() =>  {
         $("#" + thermostat.m_widgetContentId).html(thermostat.draw());
-        $("#" + thermostat.m_widgetContentId).fadeIn(function () {
+        $("#" + thermostat.m_widgetContentId).fadeIn(() =>  {
             thermostat.initListeners();
             thermostat.sendData("refreshTher");
         });

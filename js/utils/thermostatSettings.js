@@ -1,7 +1,4 @@
 $(document).ready(function () {
-
-	var APIAddress = "http://domusbox/activapi/";
-    // var APIAddress = "http://localhost/activapi.fr/";
     setTimeout(function () {
         socket.emit("getTherClock", "sync");
     }, 30);

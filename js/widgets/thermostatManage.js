@@ -1,7 +1,7 @@
 var thermostat = new Thermostat('myThermostat1', 'widget-thermostat-content');
 
 function parseThermostatFromAPI() {
-    $.getJSON('/activapi.fr/api/thermostat', function (data) {
+    $.getJSON(config.apiUrl + 'thermostat', function (data) {
         $.each(data, function (index, value) {
             thermostat.apiData = value;
             thermostat.modeid = value.modeid;
@@ -13,7 +13,7 @@ function parseThermostatFromAPI() {
 
             thermostat.internalMode = value.interne;
 
-            $.getJSON('/activapi.fr/api/mesures/get-sensors/thermostat', function (data) {
+            $.getJSON(config.apiUrl + 'mesures/get-sensors/thermostat', function (data) {
                 $.each(data, function (index, ther) {
                     thermostat.internalTemp = ther.valeur1;
 

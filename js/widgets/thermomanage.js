@@ -18,7 +18,7 @@ function parseThermosFromJSON() {
     drawPending = false;
     startTime = -1;
     thermos = [];
-    $.getJSON('/activapi.fr/api/mesures/get-sensors', function (dataAPI) {
+    $.getJSON(config.apiUrl + 'mesures/get-sensors', function (dataAPI) {
         APIData = dataAPI;
         $.getJSON('json/thermometers.json?' + new Date().getTime(), function (data) {
             $.each(data, function (index, value) {
