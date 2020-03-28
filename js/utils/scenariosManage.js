@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-	var APIAddress = "http://domusbox./activapi.fr/api/";
-	//var APIAddress = "http://localhost/activapi.fr/";
+	var APIAddress = "http://domusbox/activapi/api/";
+	// var APIAddress = "http://localhost/activapi/";
 	
 	//SUPPRESSION
 	$(".delete").click(function(){

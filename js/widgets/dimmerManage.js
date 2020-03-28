@@ -7,7 +7,7 @@
 	var firstLoadDimmers=true;
 
 	function getDimmersFromAPI(){
-		$.getJSON("/activapi.fr/api/actionneurs/dimmer",function(dataAPI){
+		$.getJSON("/activapi/api/actionneurs/dimmer",function(dataAPI){
 			dimmersAPI=dataAPI;		
 			$.getJSON('json/dimmers.json', function(dataJSON){			
 				dimmersJSON=dataJSON.dimmers;
