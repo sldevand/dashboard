@@ -50,9 +50,9 @@
 			<script src="js/animations.js"></script>
 
 			<script src="js/widgets/widgetJsonFileManage.js"></script>
-			<script type="module" src="js/viewPager.js"></script>
+			<script src="js/viewPager.js"></script>
 			<script src="js/widgets/weather.js"></script>
-			<script type="module" src="js/utils/socketioManage.js"></script>
+			<script src="js/utils/socketioManage.js"></script>
 
 	</body>
 </html>
