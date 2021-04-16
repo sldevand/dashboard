@@ -1,2 +1,2 @@
 <?php
-$APIAdress = 'http://192.168.1.52/activapi/api/';
+$APIAdress = 'http://192.168.0.13/activapi/api/';
