@@ -1,4 +1,4 @@
-$('#timewidgetparent,table').animatecssjs({
+$("#timewidgetparent,table").animatecssjs({
   // animation type
   type: "fadeIn",
   // infinite loop
@@ -7,7 +7,7 @@ $('#timewidgetparent,table').animatecssjs({
   reset: true,
 });
 
-$('#tempwidgetparent,#minmaxpanel').animatecssjs({
+$("#tempwidgetparent,#minmaxpanel").animatecssjs({
   type: "fadeIn",
   infinite: false,
   reset: true,
@@ -19,26 +19,24 @@ $("#dashlamps,.page-footer").animatecssjs({
   reset: true,
 });
 
-$('#navbar').animatecssjs({
+$("#navbar").animatecssjs({
   type: "fadeIn",
   infinite: false,
   reset: true,
 });
 
-
-$(document).ready(function(){	
-	hideAndShowFooter();
+$(document).ready(function () {
+  hideAndShowFooter();
 });
 
-
-function hideAndShowFooter(){
-	if($( window ).height()<800){
-			$("footer").hide();
-		}else{
-			$("footer").show();						
-	}	
+function hideAndShowFooter() {
+  if ($(window).height() < 800) {
+    $("footer").hide();
+  } else {
+    $("footer").show();
+  }
 }
 
-$(window).resize(function() {		
-	hideAndShowFooter();
+$(window).resize(function () {
+  hideAndShowFooter();
 });

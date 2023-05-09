@@ -37,7 +37,6 @@ session_start();
 	<script src="js/widgets/scenarioWidget.js"></script>
 	<script src="js/widgets/scenarioWidgetManage.js"></script>
 	<script src="js/animations.js"></script>
-	<script src="js/widgets/widgetJsonFileManage.js"></script>
 	<script src="js/viewPager.js"></script>
 	<script src="js/utils/socketioManage.js"></script>
 </body>
