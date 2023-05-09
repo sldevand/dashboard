@@ -110,7 +110,7 @@ function ScenarioWidget(id) {
             this.fitToContainer();
             this.eventListenerInit();
             this.activateShaders(this.shadow);
-            window.requestAnimFrame(drawFrame);
+            window.requestAnimationFrame(drawFrame);
         },
 
         animate: function () {
@@ -157,7 +157,7 @@ function ScenarioWidget(id) {
                     startTimeScenario = -1;
                     drawPendingScenario = false;
                     this.onAnimationStart();
-                    window.window.requestAnimFrame(drawFrame);
+                    window.window.requestAnimationFrame(drawFrame);
 
                 }
                 this.sendingCallback();
@@ -219,7 +219,7 @@ function ScenarioWidget(id) {
         }
         requestRedrawScenario();
         if (progressScenario < scenario.animtime) {
-            window.requestAnimFrame(drawFrame);
+            window.requestAnimationFrame(drawFrame);
         }
         else {
             scenario.onAnimationEnd();
@@ -229,7 +229,7 @@ function ScenarioWidget(id) {
     function requestRedrawScenario() {
         if (!drawPendingScenario) {
             drawPendingScenario = true;
-            window.requestAnimFrame(redrawScenario);
+            window.requestAnimationFrame(redrawScenario);
         }
     }
 
