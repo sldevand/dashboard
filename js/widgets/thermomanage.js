@@ -1,3 +1,11 @@
+const animationThermoLength = 1500.0;
+const thermosStyle = {
+  liquidColor: "#ff6666",
+  miniTemp: "-5",
+  maxiTemp: "30",
+  precTemp: "-5",
+};
+
 var thermoJSON = [];
 var thermos = [];
 var raf;
@@ -5,8 +13,6 @@ var nbThermos = 0;
 var startTime = -1;
 var firstThermoLoad = true;
 var localPrecTemp = [];
-
-var animationThermoLength = 1500.0; // Animation length in milliseconds
 var progress = 0;
 var drawPending = false;
 
@@ -17,53 +23,49 @@ function parseThermosFromJSON() {
   thermos = [];
   $.getJSON(config.apiUrl + "mesures/get-sensors", function (apiData) {
     loadAllThermos(apiData);
-    document.getElementById('thermometers-Spinner').remove();
+    document.getElementById("thermometers-Spinner").remove();
   });
 }
 
 function loadAllThermos(apiData) {
   nbThermos = apiData.length;
-
-  let thermosStyle = {
-    liquidColor: "#ff6666",
-    miniTemp: "-5",
-    maxiTemp: "30",
-    precTemp: "-5",
-  };
-
-  var i;
-  for (i = 0; i < nbThermos; i++) {
+  for (let thermoIndex = 0; thermoIndex < nbThermos; thermoIndex++) {
     if (firstThermoLoad) {
       $("#widget-thermometers-content").append(
-        generateThermoHtml("myThermo" + i)
+        generateThermoHtml("myThermo" + thermoIndex)
       );
     }
-
-    thermos.push(new Thermometre("myThermo" + i));
-    thermos[i].name = apiData[i]["nom"];
-    thermos[i].temp = parseFloat(apiData[i]["valeur1"]);
-    thermos[i].state = apiData[i]["actif"];
-    thermos[i].idSensor = apiData[i]["id"];
-    thermos[i].liquidcolor = thermosStyle.liquidColor;
-    thermos[i].namecolor = rgb2hex(getColor("textOnBodyColor"));
-    thermos[i].textcolor = rgb2hex(getColor("textOnBodyColor"));
-
-    if (firstThermoLoad) {
-      thermos[i].prectemp = parseFloat(thermosStyle.precTemp);
-      localPrecTemp[i] = thermos[i].temp;
-    } else {
-      thermos[i].prectemp = localPrecTemp[i];
-      localPrecTemp[i] = thermos[i].temp;
-    }
-    thermos[i].mintemp = parseFloat(thermosStyle.miniTemp);
-    thermos[i].maxtemp = parseFloat(thermosStyle.maxiTemp);
-    thermos[i].animtime = animationThermoLength;
-    thermos[i].animcurve = "easeOutCubic";
+    let thermo = new Thermometre("myThermo" + thermoIndex);
+    setThermoData(thermo, apiData, thermoIndex);
+    setThermoStyle(thermo);
+    thermos.push(thermo);
   }
+
   firstThermoLoad = false;
 
   setTypeOfThermo();
   raf = window.requestAnimationFrame(drawAll);
+}
+
+function setThermoStyle(thermo) {
+  thermo.liquidcolor = thermosStyle.liquidColor;
+  thermo.namecolor = rgb2hex(getColor("textOnBodyColor"));
+  thermo.textcolor = rgb2hex(getColor("textOnBodyColor"));
+  thermo.mintemp = parseFloat(thermosStyle.miniTemp);
+  thermo.maxtemp = parseFloat(thermosStyle.maxiTemp);
+  thermo.animtime = animationThermoLength;
+  thermo.animcurve = "easeOutCubic";
+}
+
+function setThermoData(thermo, apiData, thermoIndex) {
+  thermo.name = apiData[thermoIndex]["nom"];
+  thermo.temp = parseFloat(apiData[thermoIndex]["valeur1"]);
+  thermo.state = apiData[thermoIndex]["actif"];
+  thermo.idSensor = apiData[thermoIndex]["id"];
+  thermo.prectemp = firstThermoLoad
+    ? parseFloat(thermosStyle.precTemp)
+    : localPrecTemp[thermoIndex];
+  localPrecTemp[thermoIndex] = thermo.temp;
 }
 
 $(window).resize(function () {
@@ -115,41 +117,36 @@ function drawAll(timestamp) {
 
 function redraw() {
   drawPending = false;
-  var i;
-  for (i = 0; i < nbThermos; i++) {
-    thermos[i].animstep = progress;
-    thermos[i].animate();
-    thermos[i].draw();
+  for (let thermoIndex = 0; thermoIndex < nbThermos; thermoIndex++) {
+    thermos[thermoIndex].animstep = progress;
+    thermos[thermoIndex].animate();
+    thermos[thermoIndex].draw();
   }
 }
 
 function requestRedraw() {
-  if (!drawPending) {
-    drawPending = true;
-    window.requestAnimationFrame(redraw);
+  if (drawPending) {
+    return;
   }
+  drawPending = true;
+  window.requestAnimationFrame(redraw);
 }
 
 function updateThermo(thermo) {
-  for (let i = 0; i < nbThermos; i++) {
-    if (thermos[i].idSensor.includes(thermo.radioid)) {
-      thermos[i].temp = thermo.valeur1;
-      thermos[i].state = 1;
-      thermos[i].animstep = progress;
-      thermos[i].animate();
-      thermos[i].draw();
-      break;
+  for (let thermoIndex = 0; thermoIndex < nbThermos; thermoIndex++) {
+    if (thermos[thermoIndex].idSensor.includes(thermo.radioid)) {
+      thermos[thermoIndex].temp = thermo.valeur1;
+      thermos[thermoIndex].state = 1;
+      thermos[thermoIndex].animstep = progress;
+      thermos[thermoIndex].animate();
+      thermos[thermoIndex].draw();
+      return;
     }
   }
 }
 
 function generateThermoHtml(id) {
-  var prepHtml =
-    '<div class="col s4 m4 l4 center thermoWrapper">' +
-    '<canvas class="thermo" id="' +
-    id +
-    '" width=100px height=150px></canvas>' +
-    "</div>";
-
-  return prepHtml;
+  return `<div class="col s4 m4 l4 center thermoWrapper">
+  <canvas class="thermo" id="${id}" width=100px height=150px></canvas>
+  </div>`;
 }
