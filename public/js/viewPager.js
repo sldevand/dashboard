@@ -1,13 +1,19 @@
-$(document).ready(function () {
-  $.get("php/controleurs/widgetController.php", function (data) {
-    $("#maincontent").html(data);
-    loadMain();
-  });
+document.addEventListener("DOMContentLoaded", function() {
+  let widgets = {
+    scenarios: "Scénarios",
+    inters: "Interrupteurs",
+    thermometers: "Températures"
+  };
 
-  function loadMain() {
-    $("#titlebar").append("Accueil");
-    getScenariosFromApi();
-    getIntersFromApi();
-    parseThermosFromJSON();
+  let cards = [];
+  for (let widget in widgets) {
+    let cardTemplate = document.getElementById("card-template").cloneNode(true);
+
+    cards.push(cardTemplate.innerHTML);
   }
+
+  document.getElementById("maincontent").innerHTML = cards;
+  // getScenariosFromApi();
+  // getIntersFromApi();
+  // parseThermosFromJSON();
 });

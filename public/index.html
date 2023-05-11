@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ActivHome-Dashboard</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src="js/utils/jquery-3.2.1.min.js"></script>
+	<script src="js/utils/materialize.min.js"></script>
+	<link rel="stylesheet" href="css/icon-fonts.css" />
+	<link rel="stylesheet" href="css/materialdesignicons.css" />
+	<link rel="stylesheet" href="css/materialize.min.css" />
+	<link rel="stylesheet" href="css/style-parent.css" />
+	<link rel="stylesheet" href="css/style-light.css" />
+	<link rel="stylesheet" href="css/thermostat.css" />
+	<link rel="stylesheet" href="css/animate.min.css" />
+
+	<script src="js/widgets/spinner.js"></script>
+	<script src="js/utils/EasingCurves.js"></script>
+	<script src="js/utils/colorTools.js"></script>
+</head>
+
+<body>
+	<nav class="primaryColor noselect" id="navbar">
+		<div class="nav-wrapper valign-wrapper">
+			<div id="message"></div>
+			<div id="titlebar" class="brand-logo center textOnPrimaryColor"><a href="index.php"></a></div>
+
+		</div>
+	</nav>
+	<div id="maincontent" class="container-light row"></div>
+	<div id="errors"></div>
+
+	<template id = "card-template">
+		<div id="id" class="col s12 m6">
+			<div id="widget-id" class="card-panel center no-select row">
+				<div id="widget-id-title" class="flow-text center textOnPrimaryColor dashTitle primaryLightColor">
+					Title
+				</div>
+				<div id="widget-id-content" class="center dashContent">
+					<div id="id-Spinner" class="preloader-wrapper big active center">
+						<div class="spinner-layer spinner-pink-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div>
+							<div class="gap-patch">
+								<div class="circle"></div>
+							</div>
+							<div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </template>
+
+	<script src="js/utils/node_modules/socket.io-client/dist/socket.io.js"></script>
+	<script src="js/utils/animate.jquery.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/widgets/widget.js"></script>
+	<script src="js/widgets/widgetAbstract.js"></script>
+	<script src="js/widgets/interrupteur.js"></script>
+	<script src="js/widgets/interrupteurManage.js"></script>
+	<script src="js/widgets/thermometre.js"></script>
+	<script src="js/widgets/thermomanage.js"></script>
+	<script src="js/widgets/scenarioWidget.js"></script>
+	<script src="js/widgets/scenarioWidgetManage.js"></script>
+	<script src="js/animations.js"></script>
+	<script src="js/viewPager.js"></script>
+	<script src="js/utils/socketioManage.js"></script>
+</body>
+</html>
