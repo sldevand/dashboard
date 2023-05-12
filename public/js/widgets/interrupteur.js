@@ -2,7 +2,7 @@ function Inter(id) {
   var m_id = id;
   var canvas = document.getElementById(m_id);
   var ctx = canvas.getContext("2d");
-  var container = $(canvas);
+  var container = canvas.cloneNode();
   var progressInter = 0;
   var startTimeInter = -1;
   var drawPendingInter = false;
@@ -166,39 +166,33 @@ function Inter(id) {
     },
 
     activateShaders: function (activate) {
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
       if (activate) {
         ctx.shadowColor = "#333";
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
         ctx.shadowBlur = 4;
       } else {
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
         ctx.shadowBlur = 0;
       }
     },
 
     setMousePos: function (mousePos) {
       this.mousePos = mousePos;
-
       if (
-        this.getHitBox(this.mousePos.x, this.mousePos.y, true) <= this.radius
+        this.getHitBox(this.mousePos.x, this.mousePos.y, true) > this.radius
       ) {
-        if (this.apiData.etat == "0") {
-          this.setState("1");
-        } else {
-          this.setState("0");
-        }
-
-        if (this.animable) {
-          progressInter = 0;
-          startTimeInter = -1;
-          drawPendingInter = false;
-          this.onAnimationStart();
-          window.window.requestAnimationFrame(drawFrame);
-        }
-        this.sendingCallback();
+        return;
       }
+      let state = this.apiData.etat == "0" ? "1" : "0";
+      this.setState(state);
+      if (this.animable) {
+        progressInter = 0;
+        startTimeInter = -1;
+        drawPendingInter = false;
+        this.onAnimationStart();
+        window.window.requestAnimationFrame(drawFrame);
+      }
+      this.sendingCallback();
     },
 
     getMousePos: function (evt) {
@@ -228,19 +222,19 @@ function Inter(id) {
     },
 
     fitToContainer: function () {
-      canvas.width = container.width();
-      canvas.height = container.width();
+      canvas.width = container.width;
+      canvas.height = container.width;
       inter.radius = (canvas.width / 2) * inter.zoom;
     },
 
     getHitBox: function (x, y, fromCenter) {
       var hyp = 0;
-
       if (fromCenter) {
         x -= canvas.width / 2;
         y -= canvas.width / 2;
       }
       hyp = Math.sqrt(x * x + y * y);
+
       return hyp;
     },
   };
@@ -254,28 +248,27 @@ function Inter(id) {
     requestRedrawInter();
     if (progressInter < inter.animtime) {
       window.requestAnimationFrame(drawFrame);
-    } else {
-      inter.onAnimationEnd();
+      return;
     }
+    inter.onAnimationEnd();
   }
 
   function requestRedrawInter() {
-    if (!drawPendingInter) {
-      drawPendingInter = true;
-      window.requestAnimationFrame(redrawInter);
+    if (drawPendingInter) {
+      return;
     }
+    drawPendingInter = true;
+    window.requestAnimationFrame(redrawInter);
   }
 
   function redrawInter() {
     drawPendingInter = false;
-    var i;
-
     inter.animstep = progressInter;
     inter.animate();
     inter.draw();
   }
 
-  $(window).resize(function () {
+  window.addEventListener("resize", function () {
     inter.fitToContainer();
     redrawInter();
   });

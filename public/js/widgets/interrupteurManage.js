@@ -1,27 +1,32 @@
 var inters = [];
-var animationLength = 500.0; // Animation length in milliseconds
+var animationLength = 500.0;
 var firstInterLoad = true;
 
 function getIntersFromApi() {
-  $.getJSON(config.apiUrl + "actionneurs/inter", (data) => {
-    $.each(data, (key, inter) => {
-      loadInter(inter);
+  fetch(config.apiUrl + "actionneurs/inter")
+    .then((data) => {
+      return data.json();
+    })
+    .then((json) => {
+      json.forEach((inter) => {
+        loadInter(inter);
+      });
     });
-  });
 }
 
 function loadInter(interJSON) {
   if (firstInterLoad) {
     firstInterLoad = false;
-    $("#widget-inters-content").html("");
+    let widgetIntersContent = document.getElementById("widget-inters-content");
+    widgetIntersContent.innerHTML = "";
   }
   generateIntersHtml(interJSON.id);
   var inter = new Inter(interJSON.id);
-
   inter.apiData = interJSON;
   inter.animtime = animationLength;
-  $("#myInterTitle" + inter.id).html(inter.apiData.nom);
   inter.init();
+  let interTitle = document.getElementById(`myInterTitle${inter.id}`);
+  interTitle.innerHTML = inter.apiData.nom;
   inters.push(inter);
 }
 
@@ -40,15 +45,12 @@ function updateInterNode(interUp) {
 }
 
 function generateIntersHtml(idx) {
-  var prepHTML =
-    '<div class="col s4">' +
-    '<canvas id="' +
-    idx +
-    '" class="center secondaryTextColor butlp "></canvas>' +
-    '<div id="myInterTitle' +
-    idx +
-    '" class="center flow-text textOnBodyColor interTitle"></div>' +
-    "</div>";
-
-  $("#widget-inters-content").append(prepHTML);
+  var prepHTML = `<div class="col s4">
+    <canvas id="${idx}" class="center secondaryTextColor butlp "></canvas>
+    <div id="myInterTitle${idx}" class="center flow-text textOnBodyColor interTitle"></div>
+    </div>`;
+  var template = document.createElement("template");
+  template.innerHTML = prepHTML;
+  let widgetIntersContent = document.getElementById("widget-inters-content");
+  widgetIntersContent.appendChild(template.content);
 }
