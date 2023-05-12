@@ -34,14 +34,19 @@ function getColor(className) {
   // Check for the color
   if (!classColors[className]) {
     // Create an element with the class name and add it to the dom
-    $c = $('<div class="' + className + '"></div>').css("display", "none");
-    $(document.body).append($c);
+
+    let element = document.createElement("div");
+    element.classList.add(className);
+    element.style.display = "none";
+
+    document.getElementsByTagName("body")[0].appendChild(element);
 
     // Get color from dom and put it in the color cache
-    classColors[className] = $c.css("color");
+
+    classColors[className] = window.getComputedStyle(element).color;
 
     // Remove the element from the dom again
-    $c.remove();
+    element.remove();
   }
 
   // Return color

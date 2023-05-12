@@ -4,10 +4,14 @@ var animationLength = 500.0; // Animation length in milliseconds
 var firstLoadScenarios = true;
 
 function getScenariosFromApi() {
-    $.getJSON(config.apiUrl + "scenarios/", function (data) {
-        $.each(data, function (key, scenario) {
-            loadScenarioWidget(scenario);
-        });
+    fetch(config.apiUrl + "scenarios/")
+    .then((data) => {
+      return data.json();
+    })
+    .then((json) => {
+      json.forEach((scenario) => {
+        loadScenarioWidget(scenario);
+      });
     });
 }
 

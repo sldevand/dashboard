@@ -8,6 +8,17 @@
 	right:25px;
 }
 
+#statusDot {
+	height: 25px;
+	width: 25px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+#statusDot .green {
+    color: #00ffff
+}
 
 #lampswidget{
 	display:inline-block;
