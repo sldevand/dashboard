@@ -38,6 +38,6 @@ function generateScenarioWidgetHtml(id) {
     </div>`;
   var template = document.createElement("template");
   template.innerHTML = prepHTML;
-  let widgetIntersContent = document.getElementById("widget-scenarios-content");
-  widgetIntersContent.appendChild(template.content);
+  let widgetContent = document.getElementById("widget-scenarios-content");
+  widgetContent.appendChild(template.content);
 }

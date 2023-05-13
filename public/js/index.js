@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   getScenariosFromApi();
   getIntersFromApi();
-  // parseThermosFromJSON();
+  parseThermosFromJSON();
 
   function changeId(previousId, newId) {
     let element = document.getElementById(previousId);

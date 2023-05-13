@@ -21,21 +21,27 @@ function parseThermosFromJSON() {
   drawPending = false;
   startTime = -1;
   thermos = [];
-  $.getJSON(config.apiUrl + "mesures/get-sensors", function (apiData) {
-    loadAllThermos(apiData);
-    document.getElementById("thermometers-Spinner").remove();
-  });
+
+  fetch(config.apiUrl + "mesures/get-sensors")
+    .then((data) => {
+      return data.json();
+    })
+    .then((json) => {
+      loadAllThermos(json);
+    });
 }
 
 function loadAllThermos(apiData) {
   nbThermos = apiData.length;
+  let widgetSpinner = document.getElementById("widget-thermometers-spinner");
+  if (widgetSpinner) {
+    widgetSpinner.remove();
+  }
   for (let thermoIndex = 0; thermoIndex < nbThermos; thermoIndex++) {
     if (firstThermoLoad) {
-      $("#widget-thermometers-content").append(
-        generateThermoHtml("myThermo" + thermoIndex)
-      );
+      generateThermoHtml(`myThermo${thermoIndex}`);
     }
-    let thermo = new Thermometre("myThermo" + thermoIndex);
+    let thermo = new Thermometre(`myThermo${thermoIndex}`);
     setThermoData(thermo, apiData, thermoIndex);
     setThermoStyle(thermo);
     thermos.push(thermo);
@@ -68,7 +74,7 @@ function setThermoData(thermo, apiData, thermoIndex) {
   localPrecTemp[thermoIndex] = thermo.temp;
 }
 
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   setTypeOfThermo();
 });
 
@@ -90,8 +96,9 @@ function setTypeOfThermo() {
   }
   for (i = 0; i < nbThermos; i++) {
     thermos[i].type = type;
-    $("#myThermo" + i).attr("width", canvasWidth);
-    $("#myThermo" + i).attr("height", canvasHeight);
+    let myThermoElement = document.getElementById(`myThermo${i}`);
+    myThermoElement.setAttribute("width", canvasWidth);
+    myThermoElement.setAttribute("height", canvasHeight);
   }
   progress = 0;
   drawPending = false;
@@ -146,5 +153,9 @@ function updateThermo(thermo) {
 }
 
 function generateThermoHtml(id) {
-  return `<div><canvas class="thermo" id="${id}" width=100px height=150px></canvas></div>`;
+  var prepHTML = `<div><canvas class="thermo" id="${id}" width=100px height=150px></canvas></div>`;
+  var template = document.createElement("template");
+  template.innerHTML = prepHTML;
+  let widgetContent = document.getElementById("widget-thermometers-content");
+  widgetContent.appendChild(template.content);
 }
