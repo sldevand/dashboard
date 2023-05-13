@@ -1,22 +1,88 @@
 .card {
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    background-color: whitesmoke;
     border-radius: 5px;
+    z-index: 10;
 }
 
 .card .content {
-    padding: 2px 16px;
+    padding: 16px 16px;
     display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 10px;
-	grid-auto-rows: minmax(100px, auto);
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
     justify-items: center;
     min-height: 160px;
 }
 
 .card .title {
-    padding: 2px 16px;
+    padding: 4px 16px;
     background-color: #009688;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     color: whitesmoke;
+    font-size: large;
+}
+
+.widget-wrapper {
+    max-width: 80px;
+}
+
+.widget-wrapper canvas {
+    max-width: inherit;
+}
+
+.widget-wrapper span {
+    max-width: inherit;
+    display: block;
+    text-align: center;
+    font-size: medium;
+}
+
+@media only screen and (min-width: 600px) {
+    .widget-wrapper {
+        max-width: 100px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .card .title {
+        font-size: larger;
+    }
+
+    .widget-wrapper {
+        max-width: 120px;
+    }
+
+    .widget-wrapper span {
+        font-size: large;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .card .title {
+        font-size: x-large;
+    }
+
+    .widget-wrapper {
+        max-width: 140px;
+    }
+
+    .widget-wrapper span {
+        font-size: larger;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .card .title {
+        font-size: xx-large;
+    }
+
+    .widget-wrapper {
+        max-width: 160px;
+    }
+
+    .widget-wrapper span {
+        font-size: x-large;
+    }
 }

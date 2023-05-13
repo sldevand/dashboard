@@ -215,10 +215,9 @@ function ScenarioWidget(id) {
     },
 
     fitToContainer: function () {
-      let ratio = window.innerWidth /12;
-      canvas.width = ratio;
-      canvas.height = ratio;
-      scenario.radius = ratio/2 * scenario.zoom;
+      canvas.width = container.width;
+      canvas.height = container.width;
+      scenario.radius = (canvas.width / 2) * scenario.zoom;
     },
 
     getHitBox: function (x, y, fromCenter) {

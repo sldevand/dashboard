@@ -32,7 +32,7 @@ function loadScenarioWidget(scenarioJSON) {
 }
 
 function generateScenarioWidgetHtml(id) {
-  var prepHTML = `<div>
+  var prepHTML = `<div class="widget-wrapper">
     <canvas id="${id}" class="secondaryTextColor"></canvas>
     <span id="${id}title" class="textOnBodyColor"></span>
     </div>`;

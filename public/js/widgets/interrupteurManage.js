@@ -45,7 +45,7 @@ function updateInterNode(interUp) {
 }
 
 function generateIntersHtml(idx) {
-  var prepHTML = `<div class="inter-wrapper">
+  var prepHTML = `<div class="widget-wrapper">
     <canvas id="${idx}" class="secondaryTextColor"></canvas>
     <span id="myInterTitle${idx}" class="textOnBodyColor"></span>
     </div>`;
