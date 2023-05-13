@@ -209,6 +209,7 @@ function Inter(id) {
 
     eventListenerInit: function () {
       canvas.addEventListener("click", this.eventListenerCallback, false);
+      canvas.addEventListener("touchstart", this.eventListenerCallback, false);
     },
 
     eventListenerCallback: function (evt) {
@@ -219,6 +220,7 @@ function Inter(id) {
 
     eventListenerRemove: function () {
       canvas.removeEventListener("click", this.eventListenerCallback, false);
+      canvas.removeEventListener("touchstart", this.eventListenerCallback, false);
     },
 
     fitToContainer: function () {

@@ -202,6 +202,7 @@ function ScenarioWidget(id) {
 
     eventListenerInit: function () {
       canvas.addEventListener("click", this.eventListenerCallback, false);
+      canvas.addEventListener("touchstart", this.eventListenerCallback, false);
     },
 
     eventListenerCallback: function (evt) {
@@ -212,6 +213,7 @@ function ScenarioWidget(id) {
 
     eventListenerRemove: function () {
       canvas.removeEventListener("click", this.eventListenerCallback, false);
+      canvas.removeEventListener("touchstart", this.eventListenerCallback, false);
     },
 
     fitToContainer: function () {
