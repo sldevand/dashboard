@@ -45,9 +45,9 @@ function updateInterNode(interUp) {
 }
 
 function generateIntersHtml(idx) {
-  var prepHTML = `<div class="col s4">
-    <canvas id="${idx}" class="center secondaryTextColor butlp "></canvas>
-    <div id="myInterTitle${idx}" class="center flow-text textOnBodyColor interTitle"></div>
+  var prepHTML = `<div class="inter-wrapper">
+    <canvas id="${idx}" class="secondaryTextColor"></canvas>
+    <span id="myInterTitle${idx}" class="textOnBodyColor"></span>
     </div>`;
   var template = document.createElement("template");
   template.innerHTML = prepHTML;

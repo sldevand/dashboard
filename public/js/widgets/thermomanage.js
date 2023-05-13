@@ -73,8 +73,8 @@ window.addEventListener('resize', () => {
 });
 
 function setTypeOfThermo() {
-  var winWidth = $(window).width();
-  var winHeight = $(window).height();
+  var winWidth = window.innerWidth;
+  var winHeight = window.innerHeight;
   var canvasWidth;
   var canvasHeight;
 
@@ -146,7 +146,5 @@ function updateThermo(thermo) {
 }
 
 function generateThermoHtml(id) {
-  return `<div class="col s4 m4 l4 center thermoWrapper">
-  <canvas class="thermo" id="${id}" width=100px height=150px></canvas>
-  </div>`;
+  return `<div><canvas class="thermo" id="${id}" width=100px height=150px></canvas></div>`;
 }

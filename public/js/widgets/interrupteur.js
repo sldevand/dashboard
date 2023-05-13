@@ -222,9 +222,10 @@ function Inter(id) {
     },
 
     fitToContainer: function () {
-      canvas.width = container.width;
-      canvas.height = container.width;
-      inter.radius = (canvas.width / 2) * inter.zoom;
+      let ratio = window.innerWidth / 12;
+      canvas.width = ratio;
+      canvas.height = ratio;
+      inter.radius = (ratio / 2) * inter.zoom;
     },
 
     getHitBox: function (x, y, fromCenter) {

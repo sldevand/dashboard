@@ -1,0 +1,31 @@
+body {
+	background-image: linear-gradient(to right, #434343 0%, black 100%);
+	font-family: "Roboto", "Courier New", monospace;
+	font-size: xx-large;
+}
+
+.secondaryTextLightColor {
+    color:#f48fb1;
+}
+
+.secondaryTextColor {
+    color:#ac677e;
+}
+
+.primaryTextLightColor {
+    color:#01b6a4;
+}
+
+.textOnBodyColor {
+    color: black;
+}
+
+.green {
+    background-color: #69f0ae;
+    box-shadow: 0 0 10px 5px #69f0ae
+}
+
+.red {
+    background-color: #f44336;
+    box-shadow: 0 0 10px 5px #f44336
+}

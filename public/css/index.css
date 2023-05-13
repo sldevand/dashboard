@@ -1,0 +1,32 @@
+@import 'spinner.css';
+@import 'card.css';
+@import 'theme.css';
+
+@font-face {
+	font-family: "Roboto";
+	src: url("../fonts/roboto/Roboto-Bold.eot");
+	src: url("../fonts/roboto/Roboto-Bold.woff") format("woff")
+}
+
+.grid-wrapper {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 20px;
+	grid-auto-rows: minmax(210px, auto);
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+#statusDot {
+	height: 25px;
+	width: 25px;
+	border-radius: 50%;
+	display: inline-block;
+	margin: 10px;
+	margin-left: 30px;
+}
+
+.inter-wrapper span {
+	display: block;
+	text-align: center;
+}

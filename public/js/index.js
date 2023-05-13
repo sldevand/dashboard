@@ -1,22 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
   let widgets = {
-    scenarios: "Scénarios",
     inters: "Interrupteurs",
+    scenarios: "Scénarios",
     thermometers: "Températures",
   };
 
-  let cards = [];
   for (let widgetId in widgets) {
     let cardTemplate = document.getElementById("card-template").cloneNode(true);
     document.getElementById("maincontent").appendChild(cardTemplate.content);
     changeId('widget-id', `widget-${widgetId}`);
     changeId('widget-id-title', `widget-${widgetId}-title`);
+    let widgetTitle = document.getElementById(`widget-${widgetId}-title`);
+    widgetTitle.innerHTML = widgets[widgetId];
     changeId('widget-id-content', `widget-${widgetId}-content`);
-    changeId('id-Spinner', `${widgetId}-Spinner`);
+    changeId('widget-id-spinner', `widget-${widgetId}-spinner`);
   }
 
-  //document.getElementById("maincontent").innerHTML = cards;
-  // getScenariosFromApi();
+  getScenariosFromApi();
   getIntersFromApi();
   // parseThermosFromJSON();
 

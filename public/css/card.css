@@ -1,0 +1,22 @@
+.card {
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+.card .content {
+    padding: 2px 16px;
+    display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 10px;
+	grid-auto-rows: minmax(100px, auto);
+    justify-items: center;
+    min-height: 160px;
+}
+
+.card .title {
+    padding: 2px 16px;
+    background-color: #009688;
+    color: whitesmoke;
+}

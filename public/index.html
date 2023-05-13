@@ -1,64 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>ActivHome-Dashboard</title>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="css/style-parent.css" />
-	<link rel="stylesheet" href="css/style-light.css" />
+  <head>
+    <title>ActivHome-Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/index.css" />
 
-	<script src="js/widgets/spinner.js"></script>
-	<script src="js/utils/EasingCurves.js"></script>
-	<script src="js/utils/colorTools.js"></script>
-</head>
+    <script src="js/widgets/spinner.js"></script>
+    <script src="js/utils/EasingCurves.js"></script>
+    <script src="js/utils/colorTools.js"></script>
+  </head>
 
-<body>
-	<nav class="primaryColor noselect" id="navbar">
-		<div class="nav-wrapper valign-wrapper">
-			<span id="statusDot"></span>
-			<div id="titlebar" class="brand-logo center textOnPrimaryColor"><a href="index.php"></a></div>
+  <body>
+    <nav>
+        <span id="statusDot"></span>
+    </nav>
+    <div id="maincontent" class="grid-wrapper"></div>
+    <div id="errors"></div>
 
-		</div>
-	</nav>
-	<div id="maincontent" class="container-light row"></div>
-	<div id="errors"></div>
-
-	<template id = "card-template">
-		<div id="id" class="col s12 m6">
-			<div id="widget-id" class="card-panel center no-select row">
-				<div id="widget-id-title" class="flow-text center textOnPrimaryColor dashTitle primaryLightColor">
-					Title
-				</div>
-				<div id="widget-id-content" class="center dashContent">
-					<div id="id-Spinner" class="preloader-wrapper big active center">
-						<div class="spinner-layer spinner-pink-only">
-							<div class="circle-clipper left">
-								<div class="circle"></div>
-							</div>
-							<div class="gap-patch">
-								<div class="circle"></div>
-							</div>
-							<div class="circle-clipper right">
-								<div class="circle"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <template id="card-template">
+      <div id="widget-id" class="card">
+        <div class="title"><span id="widget-id-title">Title</span></div>
+        <div id="widget-id-content" class="content">
+          <div id="widget-id-spinner" class="spinner"></div>
+        </div>
+      </div>
     </template>
 
-	<script src="js/utils/node_modules/socket.io-client/dist/socket.io.js"></script>
-	<script src="js/config.js"></script>
-	<script src="js/widgets/widget.js"></script>
-	<script src="js/widgets/widgetAbstract.js"></script>
-	<script src="js/widgets/interrupteur.js"></script>
-	<script src="js/widgets/interrupteurManage.js"></script>
-	<script src="js/widgets/thermometre.js"></script>
-	<script src="js/widgets/thermomanage.js"></script>
-	<script src="js/widgets/scenarioWidget.js"></script>
-	<script src="js/widgets/scenarioWidgetManage.js"></script>
-	<script src="js/viewPager.js"></script>
-	<script src="js/utils/socketioManage.js"></script>
-</body>
+    <script src="node_modules/socket.io-client/dist/socket.io.slim.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/widgets/widget.js"></script>
+    <script src="js/widgets/widgetAbstract.js"></script>
+    <script src="js/widgets/interrupteur.js"></script>
+    <script src="js/widgets/interrupteurManage.js"></script>
+    <script src="js/widgets/thermometre.js"></script>
+    <script src="js/widgets/thermomanage.js"></script>
+    <script src="js/widgets/scenarioWidget.js"></script>
+    <script src="js/widgets/scenarioWidgetManage.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/utils/socketioManage.js"></script>
+  </body>
 </html>
