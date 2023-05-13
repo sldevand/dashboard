@@ -68,7 +68,7 @@ function setThermoData(thermo, apiData, thermoIndex) {
   localPrecTemp[thermoIndex] = thermo.temp;
 }
 
-$(window).resize(function () {
+window.addEventListener('resize', () => {
   setTypeOfThermo();
 });
 
