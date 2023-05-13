@@ -174,18 +174,19 @@ function ScenarioWidget(id) {
     setMousePos: function (mousePos) {
       this.mousePos = mousePos;
       if (
-        this.getHitBox(this.mousePos.x, this.mousePos.y, true) <= this.radius
+        this.getHitBox(this.mousePos.x, this.mousePos.y, true) > this.radius
       ) {
-        this.setState("1");
-        if (this.animable) {
-          progressScenario = 0;
-          startTimeScenario = -1;
-          drawPendingScenario = false;
-          this.onAnimationStart();
-          window.window.requestAnimationFrame(drawFrame);
-        }
-        this.sendingCallback();
+        return;
       }
+      this.setState("1");
+      if (this.animable) {
+        progressScenario = 0;
+        startTimeScenario = -1;
+        drawPendingScenario = false;
+        this.onAnimationStart();
+        window.window.requestAnimationFrame(drawFrame);
+      }
+      this.sendingCallback();
     },
 
     getMousePos: function (evt) {
@@ -213,7 +214,11 @@ function ScenarioWidget(id) {
 
     eventListenerRemove: function () {
       canvas.removeEventListener("click", this.eventListenerCallback, false);
-      canvas.removeEventListener("touchstart", this.eventListenerCallback, false);
+      canvas.removeEventListener(
+        "touchstart",
+        this.eventListenerCallback,
+        false
+      );
     },
 
     fitToContainer: function () {
