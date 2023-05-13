@@ -1,0 +1,38 @@
+{
+    "name": "Activhome",
+    "theme_color": "#333333",
+    "background_color": "#333333",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "img/activhome-72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "density": "1.5"
+        },
+        {
+            "src": "img/activhome-96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "density": "2.0"
+        },
+        {
+            "src": "img/activhome-144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "density": "3.0"
+        },
+        {
+            "src": "img/activhome-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "density": "4.0"
+        },
+        {
+            "src": "img/activhome-512.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "density": "4.0"
+        }
+    ]
+}
