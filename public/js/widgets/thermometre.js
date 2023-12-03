@@ -44,9 +44,6 @@ function Thermometre(id) {
             ctx.shadowBlur = 2;
 
             switch (this.type) {
-                case "mercure":
-                    this.drawMercure();
-                    break;
                 case "circleDigital":
                     this.drawCircleDigital();
                     break;
@@ -72,113 +69,33 @@ function Thermometre(id) {
             ctx.putImageData(imageData, 0, 0);
         },
 
-        drawMercure: function () {
-            ratio = this.tubeHeight / (this.maxtemp - this.mintemp);
-            var lastPosX = this.posX + Math.cos(this.eAngle) * this.radius;
-            var lastPosY = this.posY + Math.sin(this.eAngle) * this.radius;
-            var lastPosXEnd = this.posX + Math.cos(this.bAngle) * this.radius;
-            var lastPosYEnd = this.posY + Math.sin(this.bAngle) * this.radius;
-            ctx.shadowColor = '#333';
-            ctx.shadowOffsetX = 1;
-            ctx.shadowOffsetY = 1;
-            ctx.shadowBlur = 2;
-
-
-            //Liquid draw
-            ctx.beginPath();
-            ctx.arc(this.posX, this.posY, this.radius, this.eAngle, this.bAngle);
-            ctx.lineTo(lastPosXEnd, lastPosYEnd - ratio * this.curtemp + ratio * this.mintemp);
-            ctx.lineTo(lastPosX, lastPosYEnd - ratio * this.curtemp + ratio * this.mintemp);
-            ctx.lineTo(lastPosX, lastPosYEnd);
-            var blendPercent = (parseFloat(this.curtemp) - this.mintemp) / (this.maxtemp - this.mintemp);
-            ctx.fillStyle = blendColors(this.liquidcolor, this.liquidmincolor, 1 - blendPercent);
-            ctx.fill();
-
-            //Value draw
-            ctx.font = this.radius * 1.3 + "px Roboto";
-            ctx.textBaseline = "middle";
-            ctx.textAlign = "center";
-            ctx.fillStyle = this.textcolor;
-            ctx.fillText(parseFloat(this.curtemp).toFixed(1).toString() + " °C", this.posX, this.posY + this.radius * 1.9);
-
-            //Name draw
-            ctx.font = this.radius * 1.0 + "px Roboto";
-            ctx.fillStyle = this.namecolor;
-            ctx.fillText(this.name, this.posX, this.posY + this.radius * 3);
-
-            //Glass draw
-            ctx.beginPath();
-            ctx.arc(this.posX, this.posY, this.radius, this.eAngle, this.bAngle);
-            ctx.lineTo(lastPosXEnd, lastPosYEnd - this.tubeHeight);
-            ctx.arc(lastPosXEnd + 5, lastPosYEnd - this.tubeHeight, 5, Math.PI, Math.PI * 1.5);
-            ctx.lineTo(lastPosX - 5, lastPosYEnd - this.tubeHeight - 5);
-            ctx.arc(lastPosX - 5, lastPosYEnd - this.tubeHeight, 5, Math.PI * 1.5, Math.PI * 2);
-            ctx.lineTo(lastPosX, lastPosYEnd);
-            ctx.strokeStyle = this.glasscolor;
-            ctx.lineWidth = 2;
-            ctx.lineCap = "round";
-            ctx.stroke();
-
-            ctx.shadowColor = 'transparent';
-            //Graduations draw
-
-            //minTemp Grad+txt
-            ctx.beginPath();
-            ctx.moveTo(lastPosX + 5, lastPosYEnd);
-            ctx.lineTo(lastPosX + 12, lastPosYEnd);
-            ctx.font = this.radius * 0.7 + "px Roboto";
-            ctx.textBaseline = "middle";
-            ctx.textAlign = "center";
-            ctx.fillStyle = this.namecolor;
-            ctx.fillText((Math.round(this.mintemp)).toString(), lastPosX + 25, lastPosYEnd);
-            if (this.mintemp < -5) {
-                //0° Grad+txt
-                ctx.moveTo(lastPosX + 5, lastPosYEnd + ratio * this.mintemp);
-                ctx.lineTo(lastPosX + 12, lastPosYEnd + ratio * this.mintemp);
-                ctx.font = this.radius * 0.7 + "px Roboto";
-                ctx.textBaseline = "middle";
-                ctx.textAlign = "center";
-                ctx.fillStyle = this.namecolor;
-                ctx.fillText((Math.round(0)).toString(), lastPosX + 25, lastPosYEnd + ratio * this.mintemp);
-            }
-
-            ctx.moveTo(lastPosX + 5, lastPosYEnd - ratio * this.maxtemp + ratio * this.mintemp);
-            ctx.lineTo(lastPosX + 12, lastPosYEnd - ratio * this.maxtemp + ratio * this.mintemp);
-            ctx.font = this.radius * 0.7 + "px Roboto";
-            ctx.textBaseline = "middle";
-            ctx.textAlign = "center";
-            ctx.fillStyle = this.namecolor;
-            ctx.fillText((Math.round(this.maxtemp)).toString(), lastPosX + 25, lastPosYEnd - ratio * this.maxtemp + ratio * this.mintemp);
-            ctx.stroke();
-        },
-
         drawCircleDigital: function () {
             ctx.arc(canvas.width / 2, canvas.width / 2, canvas.width / 2.3, 0, Math.PI * 2);
             ctx.stroke();
             ctx.strokeStyle = this.glasscolor;
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 30;
             ctx.lineCap = "round";
 
             //bg fill
             var blendPercent = (parseFloat(this.curtemp) - this.mintemp) / (this.maxtemp - this.mintemp);
             ctx.fillStyle = blendColors(this.liquidcolor, this.liquidmincolor, 1 - blendPercent);
-            ctx.shadowColor = '#FFF';
+            ctx.shadowColor = '#FFFFFF';
             ctx.shadowOffsetX = 0;
             ctx.shadowOffsetY = 0;
-            ctx.shadowBlur = 0;
+            ctx.shadowBlur = 5;
             ctx.globalAlpha = 0.5;
             ctx.fill();
 
             ctx.globalAlpha = 1;
             //Value draw
-            ctx.font = canvas.height / 3.8 + "px Roboto";
+            ctx.font = '5rem Roboto';
             ctx.textBaseline = "middle";
             ctx.textAlign = "center";
             ctx.fillStyle = this.textcolor;
             ctx.fillText(parseFloat(this.curtemp).toFixed(1).toString()/* + " °C"*/, canvas.width / 2, canvas.height / 2.4);
 
             //Name draw
-            ctx.font = canvas.height / 6 + "px Roboto";
+            ctx.font = '3rem Roboto';
             ctx.fillStyle = this.namecolor;
             ctx.fillText(this.name, canvas.width / 2, canvas.height / 1.5);
         },
@@ -207,14 +124,14 @@ function Thermometre(id) {
             ctx.stroke();
 
             //Value draw
-            ctx.font = canvas.height / 2.4 + "px Roboto";
+            ctx.font = "5rem Roboto";
             ctx.textBaseline = "middle";
             ctx.textAlign = "center";
             ctx.fillStyle = this.textcolor;
             ctx.fillText(parseFloat(this.curtemp).toFixed(1).toString() + " °C", canvas.width / 2, canvas.height / 3);
 
             //Name draw
-            ctx.font = canvas.height / 3.6 + "px Roboto";
+            ctx.font = "3rem Roboto";
             ctx.fillStyle = this.namecolor;
             ctx.fillText(this.name, canvas.width / 2, canvas.height / 1.5);
         },

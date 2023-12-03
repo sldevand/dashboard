@@ -33,6 +33,8 @@ function parseThermosFromJSON() {
 
 function loadAllThermos(apiData) {
   nbThermos = apiData.length;
+
+  console.log(apiData)
   let widgetSpinner = document.getElementById("widget-thermometers-spinner");
   if (widgetSpinner) {
     widgetSpinner.remove();
@@ -79,21 +81,13 @@ window.addEventListener("resize", () => {
 });
 
 function setTypeOfThermo() {
-  var winWidth = window.innerWidth;
-  var winHeight = window.innerHeight;
   var canvasWidth;
   var canvasHeight;
 
   var type;
-  if (winWidth < 350 || winHeight < 400) {
-    type = "circleDigital";
-    canvasHeight = 90;
-    canvasWidth = 90;
-  } else {
-    type = "mercure";
-    canvasWidth = 100;
-    canvasHeight = 150;
-  }
+  type = "circleDigital";
+  canvasHeight = 300;
+  canvasWidth = 300;
   for (i = 0; i < nbThermos; i++) {
     thermos[i].type = type;
     let myThermoElement = document.getElementById(`myThermo${i}`);
@@ -153,7 +147,7 @@ function updateThermo(thermo) {
 }
 
 function generateThermoHtml(id) {
-  var prepHTML = `<div><canvas class="thermo" id="${id}" width=100px height=150px></canvas></div>`;
+  var prepHTML = `<div class="widget-wrapper"><canvas class="thermo" id="${id}" width=100px height=150px></canvas></div>`;
   var template = document.createElement("template");
   template.innerHTML = prepHTML;
   let widgetContent = document.getElementById("widget-thermometers-content");
