@@ -32,27 +32,24 @@ function parseThermosFromJSON() {
 }
 
 function loadAllThermos(apiData) {
-  nbThermos = apiData.length;
+  apiData = apiData.filter((thermoApi)=>{
+    return thermoApi.actif === "1"
+  });
 
-  console.log(apiData)
+  nbThermos = apiData.length;
   let widgetSpinner = document.getElementById("widget-thermometers-spinner");
   if (widgetSpinner) {
     widgetSpinner.remove();
   }
   for (let thermoIndex = 0; thermoIndex < nbThermos; thermoIndex++) {
-    if (firstThermoLoad) {
-      generateThermoHtml(`myThermo${thermoIndex}`);
-    }
+    generateThermoHtml(`myThermo${thermoIndex}`,  apiData[thermoIndex]["nom"]);
     let thermo = new Thermometre(`myThermo${thermoIndex}`);
     setThermoData(thermo, apiData, thermoIndex);
     setThermoStyle(thermo);
     thermos.push(thermo);
   }
 
-  firstThermoLoad = false;
-
-  setTypeOfThermo();
-  raf = window.requestAnimationFrame(drawAll);
+  redraw();
 }
 
 function setThermoStyle(thermo) {
@@ -66,88 +63,37 @@ function setThermoStyle(thermo) {
 }
 
 function setThermoData(thermo, apiData, thermoIndex) {
-  thermo.name = apiData[thermoIndex]["nom"];
   thermo.temp = parseFloat(apiData[thermoIndex]["valeur1"]);
   thermo.state = apiData[thermoIndex]["actif"];
   thermo.idSensor = apiData[thermoIndex]["id"];
-  thermo.prectemp = firstThermoLoad
-    ? parseFloat(thermosStyle.precTemp)
-    : localPrecTemp[thermoIndex];
-  localPrecTemp[thermoIndex] = thermo.temp;
 }
 
 window.addEventListener("resize", () => {
-  setTypeOfThermo();
+  redraw();
 });
 
-function setTypeOfThermo() {
-  var canvasWidth;
-  var canvasHeight;
-
-  var type;
-  type = "circleDigital";
-  canvasHeight = 300;
-  canvasWidth = 300;
-  for (i = 0; i < nbThermos; i++) {
-    thermos[i].type = type;
-    let myThermoElement = document.getElementById(`myThermo${i}`);
-    myThermoElement.setAttribute("width", canvasWidth);
-    myThermoElement.setAttribute("height", canvasHeight);
-  }
-  progress = 0;
-  drawPending = false;
-  startTime = -1;
-
-  redraw();
-}
-
-function drawAll(timestamp) {
-  // Calculate animation progress
-  if (startTime < 0) {
-    startTime = timestamp;
-  } else {
-    progress = timestamp - startTime;
-  }
-  requestRedraw();
-  if (progress <= animationThermoLength) {
-    raf = window.requestAnimationFrame(drawAll);
-  } else {
-    window.cancelAnimationFrame(raf);
-  }
-}
-
 function redraw() {
-  drawPending = false;
   for (let thermoIndex = 0; thermoIndex < nbThermos; thermoIndex++) {
     thermos[thermoIndex].animstep = progress;
-    thermos[thermoIndex].animate();
     thermos[thermoIndex].draw();
   }
-}
-
-function requestRedraw() {
-  if (drawPending) {
-    return;
-  }
-  drawPending = true;
-  window.requestAnimationFrame(redraw);
 }
 
 function updateThermo(thermo) {
   for (let thermoIndex = 0; thermoIndex < nbThermos; thermoIndex++) {
     if (thermos[thermoIndex].idSensor.includes(thermo.radioid)) {
       thermos[thermoIndex].temp = thermo.valeur1;
-      thermos[thermoIndex].state = 1;
-      thermos[thermoIndex].animstep = progress;
-      thermos[thermoIndex].animate();
       thermos[thermoIndex].draw();
       return;
     }
   }
 }
 
-function generateThermoHtml(id) {
-  var prepHTML = `<div class="widget-wrapper"><canvas class="thermo" id="${id}" width=100px height=150px></canvas></div>`;
+function generateThermoHtml(id, title) {
+  var prepHTML = `<div class="widget-wrapper">
+  <canvas id="${id}" class="secondaryTextColor" width="300" height="300"></canvas>
+  <span id="${id}title" class="textOnBodyColor">${title}</span>
+  </div>`;
   var template = document.createElement("template");
   template.innerHTML = prepHTML;
   let widgetContent = document.getElementById("widget-thermometers-content");
