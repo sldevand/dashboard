@@ -63,7 +63,7 @@ myEcho "Remote : Node modules install" &&
 remoteCommand "cd \"$REMOTE_APP_PATH/public\" && pwd && sudo $REMOTE_NPM install"
 
 myEcho "Remote : remove package files" &&
-remoteCommand "sudo rm -f \"$REMOTE_APP_PATH/public/package*\"" &&
+remoteCommand "sudo rm -f \"$REMOTE_APP_PATH\"/public/package*" &&
 
 myEcho "Remote : Add public/js/config.js file" &&
 remoteCommand "sudo cp \"$REMOTE_ENV_FILE\" \"$REMOTE_APP_PATH/public/js/\"" &&
