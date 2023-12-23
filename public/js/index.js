@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   let widgets = {
     inters: "Interrupteurs",
+    thermometers: "Capteurs",
     scenarios: "Scénarios",
-    thermometers: "Températures",
   };
 
   for (let widgetId in widgets) {
@@ -16,9 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
     changeId('widget-id-spinner', `widget-${widgetId}-spinner`);
   }
 
-  getScenariosFromApi();
   getIntersFromApi();
   parseThermosFromJSON();
+  getScenariosFromApi();
 
   function changeId(previousId, newId) {
     let element = document.getElementById(previousId);
