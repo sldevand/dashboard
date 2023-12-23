@@ -17,12 +17,15 @@ function dotenv () {
   set +a
 }
 
+function remoteCommand () {
+  ssh $REMOTE_HOST "$1"
+}
+
 dotenv
 
 LOCAL_APP_PATH=$LOCAL_WWW_PATH/$LOCAL_APP_NAME
 LOCAL_BUILD_PATH=$LOCAL_APP_PATH/build
 LOCAL_REPO_PATH=$LOCAL_APP_PATH/build/$LOCAL_APP_NAME
-REMOTE_SCRIPT_PATH=$LOCAL_APP_PATH/deploy/remote/commands.sh
 
 myEcho "START $LOCAL_APP_NAME deployer script START"
 
@@ -37,16 +40,45 @@ myEcho "Local : Remove unused files for production" &&
 rm -rfv $LOCAL_REPO_PATH/deploy &&
 rm -rfv $LOCAL_REPO_PATH/.git* &&
 rm -rfv $LOCAL_REPO_PATH/*.md &&
-rm -rfv $LOCAL_REPO_PATH/public/js/config.js.dist &&
+rm -rfv $LOCAL_REPO_PATH/public/js/config.js.dist
 
-# eval "$(ssh-agent -s)" &&
-# ssh-add $SSH_PRIVATE_KEY &&
+eval "$(ssh-agent -s)" &&
+ssh-add $SSH_PRIVATE_KEY &&
 
-# myEcho "Remote : copy from local $LOCAL_REPO_PATH to remote $REMOTE_HOST:$REMOTE_TMP_PATH" &&
-# scp -r $LOCAL_REPO_PATH $REMOTE_HOST:$REMOTE_TMP_PATH &&
-# ssh $REMOTE_HOST 'bash -s' < $REMOTE_SCRIPT_PATH &&
+myEcho "Remote : copy from local $LOCAL_REPO_PATH to remote $REMOTE_HOST:$REMOTE_TMP_PATH" &&
+scp -r $LOCAL_REPO_PATH $REMOTE_HOST:$REMOTE_TMP_PATH &&
 
-# myEcho "Local : remove build files" &&
-# rm -rf $LOCAL_BUILD_PATH &&
+myEcho "BEGIN Executing remote script"
 
-# myEcho "END $LOCAL_APP_NAME deployer script END"
+myEcho "Remote : removing previous symbolic link"
+remoteCommand "sudo rm -rvf \"$REMOTE_WWW_PATH/$REMOTE_APP_LINK\"" &&
+
+myEcho "Remote : removing previous site"
+remoteCommand "sudo rm -rvf \"$REMOTE_WWW_PATH/$REMOTE_APP_NAME\"" &&
+
+myEcho "Remote : Move from tmp folder to app folder"
+remoteCommand "sudo mv -v \"$REMOTE_TMP_PATH/$REMOTE_APP_NAME\" \"$REMOTE_APP_PATH\"" &&
+
+myEcho "Remote : Node modules install" &&
+remoteCommand "cd \"$REMOTE_APP_PATH/public\" && pwd && sudo $REMOTE_NPM install"
+
+myEcho "Remote : remove package files" &&
+remoteCommand "sudo rm -f \"$REMOTE_APP_PATH/public/package*\"" &&
+
+myEcho "Remote : Add public/js/config.js file" &&
+remoteCommand "sudo cp \"$REMOTE_ENV_FILE\" \"$REMOTE_APP_PATH/public/js/\"" &&
+
+myEcho "Remote : Creating symbolic link" &&
+remoteCommand "sudo ln -s \"$REMOTE_APP_PATH/public\" \"$REMOTE_WWW_PATH/$REMOTE_APP_LINK\"" &&
+
+myEcho "Remote : Giving correct rights" &&
+remoteCommand "sudo chown -R www-data:www-data \"$REMOTE_APP_PATH\"" &&
+remoteCommand "sudo chown -R www-data:www-data \"$REMOTE_WWW_PATH/$REMOTE_APP_LINK\"" &&
+remoteCommand "sudo find \"$REMOTE_APP_PATH\" -type d -exec chmod 0755 {} \;" &&
+remoteCommand "sudo find \"$REMOTE_APP_PATH\" -type f -exec chmod 0644 {} \;" &&
+myEcho "END Executing remote script"
+
+myEcho "Local : remove build files" &&
+rm -rf $LOCAL_BUILD_PATH &&
+
+myEcho "END $LOCAL_APP_NAME deployer script END"

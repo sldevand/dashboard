@@ -2,3 +2,4 @@ const config = {
     apiUrl: "http://localhost/activapi/api/",
     nodeUrl: "http://localhost:5901"
 };
+home
