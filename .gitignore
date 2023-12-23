@@ -4,3 +4,4 @@
 /build/
 /deploy/.env
 /deploy/remote/.env
+public/js/config.js
