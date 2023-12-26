@@ -32,8 +32,8 @@ function parseThermosFromJSON() {
 }
 
 function loadAllThermos(apiData) {
-  apiData = apiData.filter((thermoApi)=>{
-    return thermoApi.actif === "1"
+  apiData = apiData.filter((thermoApi) => {
+    return !!thermoApi.actif
   });
 
   nbThermos = apiData.length;
@@ -42,7 +42,7 @@ function loadAllThermos(apiData) {
     widgetSpinner.remove();
   }
   for (let thermoIndex = 0; thermoIndex < nbThermos; thermoIndex++) {
-    generateThermoHtml(`myThermo${thermoIndex}`,  apiData[thermoIndex]["nom"]);
+    generateThermoHtml(`myThermo${thermoIndex}`, apiData[thermoIndex]["nom"]);
     let thermo = new Thermometre(`myThermo${thermoIndex}`);
     setThermoData(thermo, apiData, thermoIndex);
     setThermoStyle(thermo);
@@ -66,6 +66,7 @@ function setThermoData(thermo, apiData, thermoIndex) {
   thermo.temp = parseFloat(apiData[thermoIndex]["valeur1"]);
   thermo.state = apiData[thermoIndex]["actif"];
   thermo.idSensor = apiData[thermoIndex]["id"];
+  thermo.radioid = apiData[thermoIndex]["radioid"];
 }
 
 window.addEventListener("resize", () => {
@@ -81,10 +82,9 @@ function redraw() {
 
 function updateThermo(thermo) {
   for (let thermoIndex = 0; thermoIndex < nbThermos; thermoIndex++) {
-    if (thermos[thermoIndex].idSensor.includes(thermo.radioid)) {
+    if (thermos[thermoIndex].radioid.includes(thermo.radioid)) {
       thermos[thermoIndex].temp = thermo.valeur1;
       thermos[thermoIndex].draw();
-      return;
     }
   }
 }

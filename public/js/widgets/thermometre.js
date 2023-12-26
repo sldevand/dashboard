@@ -6,7 +6,8 @@ function Thermometre(id) {
 
     return {
         id: m_id,
-        idSensor: "",
+        idSensor: '',
+        radioid:'',
         textcolor: "black",
         temp: '--',
 
