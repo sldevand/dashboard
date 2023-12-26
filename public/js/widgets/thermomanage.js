@@ -33,7 +33,7 @@ function parseThermosFromJSON() {
 
 function loadAllThermos(apiData) {
   apiData = apiData.filter((thermoApi) => {
-    return !!thermoApi.actif
+    return String(thermoApi.actif) === "1"
   });
 
   nbThermos = apiData.length;
