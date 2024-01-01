@@ -1,6 +1,7 @@
 @import 'spinner.css';
 @import 'card.css';
 @import 'theme.css';
+@import 'snackbar.css';
 
 @font-face {
 	font-family: "Roboto";
