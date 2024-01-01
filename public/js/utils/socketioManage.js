@@ -4,6 +4,9 @@ socket
   .on("message", (message) => {
     message.innerHTML = message;
   })
+  .on("error", (message) => {
+    showSnackbar(message);
+  })
   .on("connect", (message) => {
     toggleConnectIcon(true);
   })
