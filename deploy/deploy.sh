@@ -60,7 +60,7 @@ myEcho "Remote : Move from tmp folder to app folder"
 remoteCommand "sudo mv -v \"$REMOTE_TMP_PATH/$REMOTE_APP_NAME\" \"$REMOTE_APP_PATH\"" &&
 
 myEcho "Remote : Node modules install" &&
-remoteCommand "cd \"$REMOTE_APP_PATH/public\" && pwd && sudo $REMOTE_NPM install"
+remoteCommand "$REMOTE_NPM install --prefix \"$REMOTE_APP_PATH/public\""
 
 myEcho "Remote : remove package files" &&
 remoteCommand "sudo rm -f \"$REMOTE_APP_PATH\"/public/package*" &&
